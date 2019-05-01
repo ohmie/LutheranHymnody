@@ -1,21 +1,29 @@
 # Hymnody
 
-**TODO: Add description**
+Builds a website of public domain hymns: https://lutheranhymnody.netlify.com/tlh. The website is not finished (90s underconstruction image here).
 
-## Installation
+`ruby.rb` collected all the words for all the hymns and looked up the word sylables "hello -> hel -- lo" and saved the dictionary for the next step.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `hymnody` to your list of dependencies in `mix.exs`:
+`ruby2.rb` converted the input texts into a Lilypond format and converted the input tunes into a nicer format. Tunes have a many to one relation ship with texts, hymn numbers are duplicated, and words have differing pronunciations adding to the complexity.
 
-```elixir
-def deps do
-  [
-    {:hymnody, "~> 0.1.0"}
-  ]
+`Hymnody.build()` is very straightforward:
+
+```
+def build do
+  clean()
+  build_ly()
+  build_svg()
+  build_indices()
+  build_html()
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/hymnody](https://hexdocs.pm/hymnody).
+For testing it can also be called like: `Hymnody.build(["1","10","100"])`. Or just the step needed can be called: `Hymnody.build_indices()`
 
+Lilypond is quite slow to start (~10 seconds), but actually generating the svg is fast (~2 seconds). Lilypond can accept multiple files as input, but crashes if more than ~65 are input on my machine. I can minimize time spent during generation by chunking by 60 to minimize startup time costs like so:
+
+```
+|> Stream.map(fn x -> "../ly/" <> x <> ".ly" end)
+|> Stream.chunk_every(60)
+|> Enum.each(&run_lilypond(&1, svg_path))
+```
