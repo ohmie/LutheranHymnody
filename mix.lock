@@ -1,0 +1,6 @@
+%{
+  "csv": {:hex, :csv, "2.3.1", "9ce11eff5a74a07baf3787b2b19dd798724d29a9c3a492a41df39f6af686da0e", [:mix], [{:parallel_stream, "~> 1.0.4", [hex: :parallel_stream, repo: "hexpm", optional: false]}], "hexpm"},
+  "parallel_stream": {:hex, :parallel_stream, "1.0.6", "b967be2b23f0f6787fab7ed681b4c45a215a81481fb62b01a5b750fa8f30f76c", [], [], "hexpm"},
+  "remix": {:hex, :remix, "0.0.2", "f06115659d8ede8d725fae1708920ef73353a1b39efe6a232d2a38b1f2902109", [], [], "hexpm"},
+  "remixed_remix": {:hex, :remixed_remix, "1.0.0", "1a4c4555352361d3d72fb783e6ad25e7ea5e03a8506d038533499828d3b55b9e", [:mix], [], "hexpm"},
+}
